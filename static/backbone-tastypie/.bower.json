@@ -1,0 +1,22 @@
+{
+  "name": "backbone-tastypie",
+  "main": "backbone_tastypie/tatic/js/backbone-tastypie.js",
+  "dependencies": {
+    "underscore": ">=1.4.4",
+    "backbone": ">=1.0.0"
+  },
+  "ignore": [
+    "test",
+    ".html"
+  ],
+  "homepage": "https://github.com/PaulUithol/backbone-tastypie",
+  "_release": "ae99abde54",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "ae99abde549bd7f3baf943df31499d5cdb1e73d3"
+  },
+  "_source": "git://github.com/PaulUithol/backbone-tastypie.git",
+  "_target": "*",
+  "_originalSource": "backbone-tastypie"
+}

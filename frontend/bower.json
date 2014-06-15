@@ -1,0 +1,23 @@
+{
+    "name": "my-project",
+    "version": "0.0.1",
+    "dependencies": {
+        "jquery": "~1.10.1",
+        "requirejs": "*",
+        "requirejs-text": "*",
+        "lodash": "2.4.1",
+        "backbone": "1.1.1",
+        "bootstrap": "~3.1.1",
+        "jslider": "*",
+        "backbone-tastypie": "*",
+        "backbone-validation": "*",
+        "ladda-bootstrap": "*",
+        "jquery-ui": "*",
+        "jquery.validation": "*",
+        "backgrid": "0.3.5",
+        "backbone.paginator": "2.0.0",
+	"backbone-pageable": "1.4.8",
+	"backgrid-paginator": "0.3.5",
+	"backgrid-filter": "0.3.5"
+    }
+}

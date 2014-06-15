@@ -1,0 +1,16 @@
+{
+	"callerph": true,
+	"sr_number": true,
+	"callid": true,
+	"start_time": true,
+	"voiceid":true,
+	"duration": true,
+	"billed_pulses": true,
+	"destination": true,
+	"ftype": true,
+	"filepath": true,
+	"extension": true,
+	"ruleid": true,
+	"is_outgoing": true,
+	"coins_deducted":true
+}

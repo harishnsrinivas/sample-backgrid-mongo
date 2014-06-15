@@ -1,0 +1,65 @@
+var CallRecord = Backbone.Model.extend({});
+
+var CallRecords = Backbone.PageableCollection.extend({
+  model: CallRecord,
+  url: "http://localhost:8002/api/callrecord",
+  state: {
+    pageSize: 15
+  },
+  mode: "client"
+});
+
+var callrecords = new CallRecords();
+
+// Column definitions
+var columns = [
+    {name: "", cell: "select-row", headerCell: "select-all"},
+    {name:"callerph", label:"callerph",cell: "string"},
+    {name:"sr_number", label:"sr_number", cell:"string"},
+    {name:"callid", label:"callid", cell:"string"},
+    {name:"start_time", label:"start_time", cell:"datetime"},
+    {name:"voiceid", label:"voiceid", cell:"string"},
+    {name:"duration", label:"duration", cell:"integer"},
+    {name:"destination", label:"destination", cell:"string"},
+    {name:"billed_pulses", label:"billed_pulses", cell:"integer"},
+    {name:"ftype", label:"ftype", cell:"string"},
+    {name:"filepath",  label:"filepath", cell:"string"},
+    {name:"extension", label:"extension", cell:"integer"},
+    {name:"ruleid", label:"ruleid", cell:"integer"},
+    {name:"is_outgoing", label:"is_outgoing", cell:"string"},
+    {name:"coins_deducted", label:"coins_deducted", cell:"integer"},
+  ];
+
+// Initialize a new Grid instance
+var grid = new Backgrid.Grid({
+  columns: columns,
+  collection: callrecords,
+});
+
+// Render the grid and attach the Grid's root to your HTML document
+var $example = $("#example-1-result");
+$example.append(grid.render().el);
+
+// Initialize the paginator
+var paginator = new Backgrid.Extension.Paginator({
+  collection: callrecords
+});
+
+// Render the paginator
+$example.after(paginator.render().el);
+
+// Initialize a client-side filter to filter on the client
+// mode pageable collection's cache.
+var filter = new Backgrid.Extension.ClientSideFilter({
+  collection: callrecords,
+  fields: ['name']
+});
+
+// Render the filter
+$example.before(filter.render().el);
+
+// Add some space to the filter and move it to the right
+$(filter.el).css({float: "right", margin: "20px"});
+
+// Fetch some countries from the url
+callrecords.fetch();

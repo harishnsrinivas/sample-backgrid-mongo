@@ -1,0 +1,13 @@
+{
+  "name": "jslider",
+  "homepage": "https://github.com/egorkhmelev/jslider",
+  "_release": "060a8c40ef",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "060a8c40ef1e6a36f0b0b3b06cbfb369b2484261"
+  },
+  "_source": "git://github.com/egorkhmelev/jslider.git",
+  "_target": "*",
+  "_originalSource": "jslider"
+}

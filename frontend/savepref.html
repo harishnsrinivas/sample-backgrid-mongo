@@ -1,0 +1,45 @@
+<html>
+    <body>
+        
+        <button id="save-pref">
+            Save
+        </button>
+
+        <script type="text/javascript" src="/static/jquery/jquery.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js"></script>
+        <script type="text/javascript" src="/static/backbone/backbone.js"></script>
+        <script type="text/javascript">
+        $(function(){
+            var prefModel = Backbone.Model.extend({
+                urlRoot: "/api/v1/callrecordpref/",
+            });
+
+            pref_model = new prefModel();
+            pref_model.fetch({reset:true}).done(function(data){
+                console.log(JSON.parse(data.objects[0].preference));
+                $('body').append(_.template($("#savepref-tmpl").html(), {'fields' : data.objects[0].preference}));    
+            });
+            
+            $("#save-pref").click(function(){
+                var params = {};
+                for(fld in $('.column')){
+                    params[fld.attr('id')] = fld.prop('checked');
+                }
+                pref_model.set('preference', params);
+                pref_model.save();
+                
+            });
+
+        });
+        </script>
+        <script type="text/template" id="savepref-tmpl">
+            <% $.each(fields, function(key, value){  %>
+                <% if(value) { %>
+                    <input class="column" id="{{field}}" type="checkbox" checked />  <%=key%>
+                <% } else { %>
+                    <input class="column" id="{{field}}" type="checkbox" />  <%=key%>
+                <% } %>
+            <% }); %>
+        </script>
+    </body>
+</html>
