@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from tastypie.api import Api
 
-from backgridtest.call_record_resource import CallRecordResource, CallRecordPreference
+from backgridtest.cdr_resource import CallRecordResource, CallRecordPreference
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -14,4 +14,6 @@ apis.register(CallRecordPreference())
 
 urlpatterns = [url(r'^api/', include(apis.urls)),
                url(r'^testcdrgrid/', 'backgridtest.views.renderTestGrid'),
-               url(r'^savepref/', 'backgridtest.views.renderConfigPage'), ]
+               url(r'^savepref/', 'backgridtest.views.renderConfigPage'),
+               url(r'^initcdrlist/', 'backgridtest.views.initcdrlist'),
+               url(r'^migratecdr/', 'backgridtest.views.migratecdr') ]

@@ -1,31 +1,38 @@
 <html>
     <body>
-        
+        <ul id="cdr-pref"></ul>
         <button id="save-pref">
             Save
         </button>
 
         <script type="text/javascript" src="/static/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/static/jquery-ui/ui/jquery-ui.js"></script>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js"></script>
         <script type="text/javascript" src="/static/backbone/backbone.js"></script>
         <script type="text/javascript">
         $(function(){
             var prefModel = Backbone.Model.extend({
+                idAttribute: "_id",
                 urlRoot: "/api/v1/callrecordpref/",
             });
 
-            pref_model = new prefModel();
-            pref_model.fetch({reset:true}).done(function(data){
-                console.log(JSON.parse(data.objects[0].preference));
-                $('body').append(_.template($("#savepref-tmpl").html(), {'fields' : data.objects[0].preference}));    
+            pref_model = new prefModel({"_id":1});
+            pref_model.fetch().done(function(data){
+                $('#cdr-pref').append(_.template($("#savepref-tmpl").html(), {'fields' : data.preference}));    
             });
+
+            $("#cdr-pref").sortable();
             
             $("#save-pref").click(function(){
                 var params = {};
-                for(fld in $('.column')){
-                    params[fld.attr('id')] = fld.prop('checked');
-                }
+                var order_pref = [];
+                $("ul li input:checkbox(:checked)").each(function(i){
+                    order_pref.push($(this).attr('id'));
+                    params[$(this).attr('id')] = $(this).prop('checked')
+                })
+                
                 pref_model.set('preference', params);
+                pref_model.set('order_preference', order_pref)
                 pref_model.save();
                 
             });
@@ -35,9 +42,9 @@
         <script type="text/template" id="savepref-tmpl">
             <% $.each(fields, function(key, value){  %>
                 <% if(value) { %>
-                    <input class="column" id="{{field}}" type="checkbox" checked />  <%=key%>
+                    <li><input class="column" id="<%=key%>" type="checkbox" checked />  <%=key%></li>
                 <% } else { %>
-                    <input class="column" id="{{field}}" type="checkbox" />  <%=key%>
+                    <li><input class="column" id="<%=key%>" type="checkbox" />  <%=key%></li>
                 <% } %>
             <% }); %>
         </script>

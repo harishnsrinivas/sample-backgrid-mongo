@@ -1,4 +1,5 @@
 import json
+from ast import literal_eval
 
 from tastypie import fields
 from tastypie.resources import ModelResource
@@ -28,6 +29,12 @@ class CallRecordPreference(ModelResource):
         resource_name = 'callrecordpref'
         allowed_methods = ['get', 'post', 'put']
         authorization= Authorization()
+
+    def alter_list_data_to_serialize(self, request, data):
+        bundle = data['objects'][0]
+        bundle.data['preference'] = literal_eval(bundle.data['preference'])
+        data['objects'][0] = bundle
+        return data
 
     '''def dehydrate(self, bundle):
         pref_dict = {}

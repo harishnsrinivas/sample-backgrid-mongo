@@ -3,7 +3,7 @@ import collections
 from django.db import models
 from django.utils import timezone
 
-from jsonfield import JSONField
+from jsonfield.fields import JSONField
 
 
 # Create your models here.

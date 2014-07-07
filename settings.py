@@ -1,5 +1,5 @@
 # Django settings for testwork project.
-import os
+import os, sys
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -9,30 +9,23 @@ ADMINS = (
 )
 
 PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(PROJECT_DIR)
 
 MANAGERS = ADMINS
 
 DATABASES = {
-   'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        #'NAME': 'srjagerbomb',                      # Or path to database file if using sqlite3.
-        'NAME': 'sr',
-        #'NAME': 'amarula',
-        'USER': 'root',
-        #'PASSWORD':'password',
-        #'PASSWORD': 'testing#123',                  # Not used with sqlite3.
-        'PASSWORD':'123456',
-        #'HOST': '10.60.20.46',                      # Set to empty string for localhost. Not used with sqlite3.
-        'HOST': '192.168.2.6',                      # Set to empty string for localhost. Not used with sqlite3.
-        #'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
-        # 'PORT': '',
-        'OPTIONS': {
-            'init_command': 'SET storage_engine=INNODB',
-        }
-    }    
+
+    'default': {},  
 }
+
+#global mongodb connection
+
+from pymongo import MongoClient
+def getMongoConnection():
+    mongo_client = MongoClient()
+    return mongo_client.db4backgrid
+
+MONGO_DB_CONN = getMongoConnection()
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -115,10 +108,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'testwork.urls'
+ROOT_URLCONF = 'backgrid-test.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'testwork.wsgi.application'
+WSGI_APPLICATION = 'backgrid-test.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
